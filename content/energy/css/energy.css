@@ -121,11 +121,11 @@ a:hover {
 /* Selections */
 
 *::-moz-selection {
-	background-color: #ff0000;
+	background-color: #000080;
 }
 
 *::selection {
-	background-color: #ff0000;
+	background-color: #000080;
 }
 
 /* Grey */
@@ -643,7 +643,7 @@ a.content_link:after {
 /* How it works */
 
 .how_it_works .image .number {
-	background: #ff0000;
+	background: #000080;
 }
 
 /* Trailer box */
