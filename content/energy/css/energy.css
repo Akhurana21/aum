@@ -923,8 +923,8 @@ h2 {
 }
 
 #intro .one-third {
-	margin: 0;
-	width: 33.333%
+	margin: 0px 5px 0px 5px;
+	width: 31.333%
 }
 
 #features .one-second:nth-child(1) .list_item .list_left {
