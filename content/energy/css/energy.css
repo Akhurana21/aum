@@ -105,7 +105,7 @@ div.jp-interface,
 .tp-bullets.tp-thumbs .bullet.selected:after,
 .offer_thumb .slider_pagination a:before,
 .offer_thumb .slider_pagination a.selected:after {
-	background-color: #ff0000;
+	background-color: #000080;
 }
 
 /* Links color */
@@ -1391,4 +1391,23 @@ div.flv_align_right {
 .flv_float_right,
 div.flv_float_right {
 	float: right;
+}
+
+#gallery-1 {
+	margin: auto;
+}
+
+#gallery-1 .gallery-item {
+	float: left;
+	margin-top: 10px;
+	text-align: center;
+	width: 25%;
+}
+
+#gallery-1 img {
+	border: 2px solid #cfcfcf;
+}
+
+#gallery-1 .gallery-caption {
+	margin-left: 0;
 }
