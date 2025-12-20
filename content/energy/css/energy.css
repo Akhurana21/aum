@@ -1411,3 +1411,14 @@ div.flv_float_right {
 #gallery-1 .gallery-caption {
 	margin-left: 0;
 }
+
+.tp-fullwidth-forcer {
+    height: 500px !important;
+}
+
+.rev_slider_wrapper{
+	max-height: 500px !important;
+	height: 500px !important;}
+.fullwidthabanner{
+	max-height: 500px !important;
+	height: 500px !important;}
