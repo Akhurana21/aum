@@ -8178,6 +8178,11 @@ ul.clients li {
 	list-style: none
 }
 
+ul.clients li.custom-wdth
+{
+width: 310px !important;
+}
+
 ul.clients .client_wrapper {
 	padding: 10px 15px;
 	margin: 10px;
@@ -8187,6 +8192,12 @@ ul.clients .client_wrapper {
 	height: 75px;
 	line-height: 75px;
 	position: relative
+}
+
+ul.clients .custom-hght
+{
+	width: 300px !important;
+	height: 300px !important;
 }
 
 ul.clients .client_wrapper:hover {
