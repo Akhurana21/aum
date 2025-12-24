@@ -111,11 +111,11 @@ div.jp-interface,
 /* Links color */
 
 a {
-	color: #ff0000;
+	color: #000080;
 }
 
 a:hover {
-	color: #c90000;
+	color: #000080;
 }
 
 /* Selections */
@@ -183,7 +183,7 @@ h2 a:hover {
 h3,
 h3 a,
 h3 a:hover {
-	color: #FFDB3A;
+	color: #000080;
 }
 
 h4,
