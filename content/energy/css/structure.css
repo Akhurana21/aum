@@ -1224,9 +1224,9 @@ body.minimalist-header.header-below:not(.template-slider) #Header {
 }
 #Top_bar #logo {
 	display: block;
-	height: 60px;
+	height: 81px;
 	line-height: 60px;
-	padding: 15px 0px;
+	padding: 10px 0px;
 }
 
 /* overflow: hidden; */
