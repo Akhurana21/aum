@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Locations - AUM Industrial Packaging</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+        .map-container {
+            position: relative;
+            height: 100vh;
+        }
+        .map-info-window {
+            padding: 10px;
+        }
+        .map-info-window h3 {
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+        }
+        .map-info-window p {
+            margin: 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
+
+    <script>
+        function initMap() {
+            // Map options
+            const mapOptions = {
+                zoom: 12,
+                center: { lat: 28.6139, lng: 77.2090 }, // Default center (Delhi)
+                styles: [
+                    {
+                        "featureType": "all",
+                        "elementType": "labels.text.fill",
+                        "stylers": [{"saturation": 36}, {"color": "#333333"}, {"lightness": 40}]
+                    },
+                    {
+                        "featureType": "all",
+                        "elementType": "labels.text.stroke",
+                        "stylers": [{"visibility": "on"}, {"color": "#ffffff"}, {"lightness": 16}]
+                    },
+                    {
+                        "featureType": "all",
+                        "elementType": "labels.icon",
+                        "stylers": [{"visibility": "off"}]
+                    }
+                ]
+            };
+
+            // Create map
+            const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+            // Array of locations with their details
+            const locations = [
+                {
+                    position: { lat: 28.6139, lng: 77.2090 },
+                    title: 'AUM Industrial Packaging',
+                    info: '123 Industrial Area<br>New Delhi, 110020<br>Phone: +91 1234567890'
+                },
+                {
+                    position: { lat: 28.6199, lng: 77.1990 },
+                    title: 'AUM Warehouse',
+                    info: '456 Business Park<br>New Delhi, 110021<br>Phone: +91 9876543210'
+                }
+                // Add more locations as needed
+            ];
+
+            // Create info window
+            const infoWindow = new google.maps.InfoWindow();
+
+            // Add markers for each location
+            locations.forEach((location) => {
+                const marker = new google.maps.Marker({
+                    position: location.position,
+                    map: map,
+                    title: location.title
+                });
+
+                // Add click event to show info window
+                marker.addListener('click', () => {
+                    infoWindow.setContent(`
+                        <div class="map-info-window">
+                            <h3>${location.title}</h3>
+                            <p>${location.info}</p>
+                        </div>
+                    `);
+                    infoWindow.open(map, marker);
+                });
+            });
+
+            // Fit map to show all markers
+            if (locations.length > 0) {
+                const bounds = new google.maps.LatLngBounds();
+                locations.forEach(location => {
+                    bounds.extend(new google.maps.LatLng(location.position.lat, location.position.lng));
+                });
+                map.fitBounds(bounds);
+                
+                // Add some padding if needed
+                map.panToBounds(bounds);
+            }
+        }
+    </script>
+    
+    <!-- Load the Google Maps API with your API key -->
+    <script async defer 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8YMGSFRH5kB9cK2ZJFr8B3rs2_MDRQkI&callback=initMap">
+    </script>
+</body>
+</html>
