@@ -106,11 +106,9 @@
                                     <div class="column one column_map">
 
                                         <!-- Google map area -->
-                                        <div class="google-map-wrapper">
-                                            <div class="google-map" id="google-map-area-54a6aca54f1b3" style="width:100%; height:460px;">
-                                                &nbsp;
-                                            </div>
-                                        </div>
+                                    <div class="google-map-wrapper">
+                                        <div id="map" style="width:100%; height:460px;"></div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -294,7 +292,7 @@
     <script src="js/scripts.js"></script>
     <script src="js/email.js"></script>
 
-        <script src="http://maps.google.com/maps/api/js?sensor=false&ver=5.9"></script>
+        <!-- <script src="http://maps.google.com/maps/api/js?sensor=false&ver=5.9"></script> -->
 
     <script src="plugins/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
     <script src="plugins/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
@@ -354,6 +352,9 @@
         });
     </script>
 
+    <!-- Load the Google Maps API with your API key -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+
     <script>
         jQuery(window).on('load', function () {
             var retina = window.devicePixelRatio > 1 ? true : false;
@@ -365,6 +366,79 @@
             }
         });
     </script>
+
+
+<!-- Add this script before closing body tag or in a separate JS file -->
+<script>
+    function initMap() {
+        // Map options
+        const mapOptions = {
+            zoom: 12,
+            center: { lat: 28.6139, lng: 77.2090 }, // Default center (Delhi)
+            styles: [
+                {
+                    "featureType": "all",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{"saturation": 36}, {"color": "#333333"}, {"lightness": 40}]
+                },
+                {
+                    "featureType": "all",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [{"visibility": "on"}, {"color": "#ffffff"}, {"lightness": 16}]
+                },
+                {
+                    "featureType": "all",
+                    "elementType": "labels.icon",
+                    "stylers": [{"visibility": "off"}]
+                }
+            ]
+        };
+        // Create map
+        const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        // Array of locations with their details
+        const locations = [
+            {
+                position: { lat: 28.6139, lng: 77.2090 },
+                title: 'Location 1',
+                info: 'AUM Industrial Packaging<br>123 Industrial Area<br>New Delhi, 110020'
+            },
+            {
+                position: { lat: 28.6199, lng: 77.1990 },
+                title: 'Location 2',
+                info: 'AUM Warehouse<br>456 Business Park<br>New Delhi, 110021'
+            },
+            // Add more locations as needed
+        ];
+        // Create info window
+        const infoWindow = new google.maps.InfoWindow();
+        // Add markers for each location
+        locations.forEach((location) => {
+            const marker = new google.maps.Marker({
+                position: location.position,
+                map: map,
+                title: location.title
+            });
+            // Add click event to show info window
+            marker.addListener('click', () => {
+                infoWindow.setContent(`
+                    <div style="padding: 10px;">
+                        <h3 style="margin: 0 0 5px 0; font-size: 16px; color: #333;">${location.title}</h3>
+                        <p style="margin: 0; font-size: 14px; color: #666;">${location.info}</p>
+                    </div>
+                `);
+                infoWindow.open(map, marker);
+            });
+        });
+        // Fit map to show all markers
+        if (locations.length > 0) {
+            const bounds = new google.maps.LatLngBounds();
+            locations.forEach(location => {
+                bounds.extend(new google.maps.LatLng(location.position.lat, location.position.lng));
+            });
+            map.fitBounds(bounds);
+        }
+    }
+</script>
 </body>
 
 </html>
