@@ -107,7 +107,28 @@
 
                                         <!-- Google map area -->
                                     <div class="google-map-wrapper">
-                                        <div id="map" style="width:100%; height:460px;"></div>
+                                        <div style="width:100%; height:460px;">
+
+        <gmp-map center="19.18,73.19" zoom="8" map-id="DEMO_MAP_ID">
+      <gmp-advanced-marker position="19.183949, 73.196978" title="Ambernath">
+        <img class="flag-icon"
+             src="images/mappin.png"/>
+      </gmp-advanced-marker>
+      <gmp-advanced-marker position="19.212608, 72.977556" title="Thane">
+        <img class="flag-icon"
+             src="images/mappin.png"/>
+      </gmp-advanced-marker>
+      <gmp-advanced-marker position="18.524383, 73.878752" title="Pune">
+        <img class="flag-icon"
+             src="images/mappin.png"/>
+      </gmp-advanced-marker>
+    </gmp-map>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&loading=async&libraries=marker&v=beta&solution_channel=GMP_CCS_complexmarkers_v3"
+      defer
+    ></script>
+
+                                        </div>
                                     </div>
                                     </div>
                                 </div>
