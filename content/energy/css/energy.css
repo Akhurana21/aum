@@ -1416,3 +1416,14 @@ div.flv_float_right {
 .tp-fullwidth-forcer {
     /* height: 500px !important; */
 }
+
+.whatsapp-link {
+    /* display: inline-flex; */
+    align-items: center;
+}
+.whatsapp-icon {
+    /* margin-left: 0px; */
+    vertical-align: middle;
+    height: 1em; /* Adjust based on your design */
+    width: auto;
+}
