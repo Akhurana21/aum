@@ -104,28 +104,24 @@
                                 <div class="items_group clearfix">
                                     <!-- One full width row-->
                                     <div class="column one column_map">
-
-                                        <!-- Google map area -->
-                                    <div class="google-map-wrapper">
-                                        <div style="width:100%; height:460px;">
-
-                <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1sYeOkqm5lBGBMgxFAzY5GX97guZn65E&ehbc=2E312F&noprof=1"
-                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" width="100%" height="100%">
-                </iframe>
-
+                                            <!-- Google map area -->
+                                        <div class="google-map-wrapper">
+                                            <div style="width:100%; height:460px;">
+                                                <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1sYeOkqm5lBGBMgxFAzY5GX97guZn65E&ehbc=2E312F&noprof=1"
+                                                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" width="100%" height="100%">
+                                                </iframe>
+                                            </div>
                                         </div>
-                                    </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Google map area start -->
+                            <div class="rs-map-area rs-map-one">
+                                <div class="rs-google-map">
 
-                                    <!-- Google map area start -->
-        <div class="rs-map-area rs-map-one">
-            <div class="rs-google-map">
-
-            </div>
-        </div>
-        <!-- Google map area end-->
+                                </div>
+                            </div>
+                            <!-- Google map area end-->
                         </div>
                         <div class="section sections_style_4">
                             <div class="section_wrapper clearfix">
@@ -179,13 +175,13 @@
                                     <div class="column one-second column_column">
                                         <div class="column_attr">
                                             <h2 style="margin-bottom: 0px;">Send us a message</h2>
-                                            <h3>Fell free to ask</h3>
+                                            <h3>Feel free to ask</h3>
 
                                             <div id="contactWrapper">
-                                                <form id="contactform">
+                                                <form id="contactForm" action="contact.php" method="POST" class="contact-form" enctype="multipart/form-data">
                                                     <!-- One Second (1/2) Column -->
                                                     <div class="column one-second">
-                                                        <input placeholder="Your name" type="text" name="name" id="name" size="40" aria-required="true" aria-invalid="false" />
+                                                        <input placeholder="Your name" type="text" name="name" id="name" size="40" aria-required="true" aria-invalid="false"/>
                                                     </div>
                                                     <!-- One Second (1/2) Column -->
                                                     <div class="column one-second">
@@ -198,11 +194,18 @@
                                                         <textarea placeholder="Message" name="body" id="body" style="width:100%;" rows="10" aria-invalid="false"></textarea>
                                                     </div>
                                                     <div class="column one">
+                                                        <!-- reCAPTCHA widget -->
+                                                        <!-- <div class="g-recaptcha" data-sitekey="6Lft9IwrAAAAANTO6NctaSCSXhA4sH9IueuTUXBu"></div> -->
+                                                        <div class="g-recaptcha" data-sitekey="6Ld9hsgrAAAAAGw7tziyNvJjE1wqNA259qpuwfym"
+                                                            data-callback="enableSubmit" data-expired-callback="disableSubmit"
+                                                            data-error-callback="disableSubmit">
+                                                        </div>
+                                                    </div>
+                                                    <div class="column one">
                                                         <input type="button" value="SEND A MESSAGE" id="submit" onClick="return check_values();">
                                                     </div>
                                                 </form>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -405,6 +408,144 @@
         }
     }
 </script>
+
+<!-- Form code -->
+<style>
+  .main-btn.disabled-btn {
+      background-color: #ccc !important;
+      border-color: #ccc !important;
+      color: #666 !important;
+      cursor: not-allowed !important;
+  }
+</style>
+<script>
+  function enableSubmit() {
+      var btn = document.getElementById('submitBtn');
+      btn.disabled = false;
+      btn.classList.remove('disabled-btn');
+      btn.style.backgroundColor = '#020c45';
+  }
+
+  function disableSubmit() {
+      var btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.classList.add('disabled-btn');
+  }
+
+  // Optional: disable button on load
+  window.onload = function () {
+      disableSubmit();
+  };
+</script>
+<script>
+  function sanitizeInput(value) {
+      // Remove leading/trailing whitespace and basic dangerous characters
+      return value.trim().replace(/[<>"'`]/g, '');
+  }
+  function validateName(name) {
+      return /^[A-Za-z\s]{2,}$/.test(name);
+  }
+  function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+  function validatePhone(phone) {
+      return /^\d{10,15}$/.test(phone);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+      var form = document.querySelector('.contact_form form');
+      var nameInput = form.querySelector('input[name="name"]');
+      var emailInput = form.querySelector('input[name="email"]');
+      var phoneInput = form.querySelector('input[name="phone"]');
+      var submitBtn = document.getElementById('submitBtn');
+
+      // Create error message elements
+      var nameError = document.createElement('div');
+      nameError.style.color = 'red';
+      nameError.style.fontSize = '0.9em';
+      nameInput.parentNode.appendChild(nameError);
+
+      var emailError = document.createElement('div');
+      emailError.style.color = 'red';
+      emailError.style.fontSize = '0.9em';
+      emailInput.parentNode.appendChild(emailError);
+
+      var phoneError = document.createElement('div');
+      phoneError.style.color = 'red';
+      phoneError.style.fontSize = '0.9em';
+      phoneInput.parentNode.appendChild(phoneError);
+
+      function showError(input, errorDiv, message) {
+          errorDiv.textContent = message;
+          input.classList.add('is-invalid');
+      }
+      function clearError(input, errorDiv) {
+          errorDiv.textContent = '';
+          input.classList.remove('is-invalid');
+      }
+
+      function validateFields() {
+          let valid = true;
+          // Sanitize values before validation
+          var nameVal = sanitizeInput(nameInput.value);
+          var emailVal = sanitizeInput(emailInput.value);
+          var phoneVal = sanitizeInput(phoneInput.value);
+          if (!nameVal) {
+              showError(nameInput, nameError, 'Name is required.');
+              valid = false;
+          } else if (!validateName(nameVal)) {
+              showError(nameInput, nameError, 'Please enter a valid name (letters and spaces only).');
+              valid = false;
+          } else {
+              clearError(nameInput, nameError);
+          }
+          if (!emailVal) {
+              showError(emailInput, emailError, 'Email is required.');
+              valid = false;
+          } else if (!validateEmail(emailVal)) {
+              showError(emailInput, emailError, 'Please enter a valid email address.');
+              valid = false;
+          } else {
+              clearError(emailInput, emailError);
+          }
+          if (!phoneVal) {
+              showError(phoneInput, phoneError, 'Phone number is required.');
+              valid = false;
+          } else if (!validatePhone(phoneVal)) {
+              showError(phoneInput, phoneError, 'Please enter a valid phone number (10-15 digits).');
+              valid = false;
+          } else {
+              clearError(phoneInput, phoneError);
+          }
+          // Overwrite input values with sanitized values before submit
+          nameInput.value = nameVal;
+          emailInput.value = emailVal;
+          phoneInput.value = phoneVal;
+          return valid;
+      }
+
+      form.addEventListener('submit', function (e) {
+          if (!validateFields()) {
+              e.preventDefault();
+          }
+      });
+
+      // Validation only on blur (field exit) and on submit
+      nameInput.addEventListener('blur', function () { validateFields(); });
+      emailInput.addEventListener('blur', function () { validateFields(); });
+      phoneInput.addEventListener('blur', function () { validateFields(); });
+  });
+</script>
+<!-- Add required attribute to all fields -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      var form = document.querySelector('.contact_form form');
+      form.querySelector('input[name="name"]').setAttribute('required', 'required');
+      form.querySelector('input[name="email"]').setAttribute('required', 'required');
+      form.querySelector('input[name="phone"]').setAttribute('required', 'required');
+  });
+</script>
+
 </body>
 
 </html>
