@@ -226,7 +226,7 @@ button,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
-	background-color: #ff0000;
+	background-color: #000080;
 	color: #fff;
 }
 
@@ -242,11 +242,11 @@ a.hover.mfn-link-2 span:before,
 a.mfn-link-5 span,
 a.mfn-link-8:after,
 a.mfn-link-8:before {
-	background: #ff0000;
+	background: #000080;
 }
 
 a:hover.mfn-link {
-	color: #ff0000;
+	color: #000080;
 }
 
 a.mfn-link-2 span:before,
