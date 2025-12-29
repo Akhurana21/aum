@@ -8,7 +8,7 @@ if (isset($_POST['send'])) {
     $userName = isset($_POST['name']) ? trim($_POST['name']) : '';
     $userEmail = isset($_POST['email']) ? trim($_POST['email']) : '';
     $userSub = isset($_POST['subject']) ? trim($_POST['subject']) : '';
-    $userMessage = isset($_POST['message']) ? trim($_POST['message']) : '';
+    $userMessage = isset($_POST['body']) ? trim($_POST['body']) : '';
     // Backend validation matching frontend
     $errors = [];
     // Name: letters and spaces only, min 2 chars
@@ -43,7 +43,7 @@ if (isset($_POST['send'])) {
             $mail->Port       = intval($_ENV['SMTP_PORT']);
             // Email headers
             $mail->setFrom('sales@aumindustrialpackaging.com', 'AUM Industrial Packaging');
-            $mail->addAddress('sales@aumindustrialpackaging.com');        // Receiver email
+            $mail->addAddress('shailesh.junghare@gmail.com');        // Receiver email
 
             // Email body
             $mail->isHTML(true);

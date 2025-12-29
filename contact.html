@@ -34,7 +34,7 @@
 
     <!-- Revolution Slider -->
     <link rel='stylesheet' id='revslider' href='plugins/rs-plugin/css/settings.css'>
-
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body
@@ -178,6 +178,7 @@
                                             <h3>Feel free to ask</h3>
 
                                             <div id="contactWrapper">
+                                            <div class="contact_form">
                                                 <form id="contactForm" action="contact.php" method="POST" class="contact-form" enctype="multipart/form-data">
                                                     <!-- One Second (1/2) Column -->
                                                     <div class="column one-second">
@@ -196,17 +197,18 @@
                                                     <div class="column one">
                                                         <!-- reCAPTCHA widget -->
                                                         <!-- <div class="g-recaptcha" data-sitekey="6Lft9IwrAAAAANTO6NctaSCSXhA4sH9IueuTUXBu"></div> -->
-                                                        <div class="g-recaptcha" data-sitekey="6Ld9hsgrAAAAAGw7tziyNvJjE1wqNA259qpuwfym"
+                                                        <div class="g-recaptcha" data-sitekey="6LcgYDosAAAAALruL1o0O3lWrtdtSnpjF1VhPNNl"
                                                             data-callback="enableSubmit" data-expired-callback="disableSubmit"
                                                             data-error-callback="disableSubmit">
                                                         </div>
                                                     </div>
                                                     <div class="column one">
-                                                        <button type="submit" id="submit" name="send">
+                                                        <button type="submit" id="submitBtn" name="send" disabled class="main-btn">
                                                             SEND A MESSAGE
                                                         </button>
                                                     </div>
                                                 </form>
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -450,15 +452,14 @@
   function validateEmail(email) {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
-  function validatePhone(phone) {
-      return /^\d{10,15}$/.test(phone);
-  }
+  
 
   document.addEventListener('DOMContentLoaded', function () {
       var form = document.querySelector('.contact_form form');
       var nameInput = form.querySelector('input[name="name"]');
       var emailInput = form.querySelector('input[name="email"]');
-      var phoneInput = form.querySelector('input[name="phone"]');
+      var subInput = form.querySelector('input[name="subject"]');
+      var bodyInput = form.querySelector('input[name="body"]');
       var submitBtn = document.getElementById('submitBtn');
 
       // Create error message elements
@@ -472,10 +473,15 @@
       emailError.style.fontSize = '0.9em';
       emailInput.parentNode.appendChild(emailError);
 
-      var phoneError = document.createElement('div');
-      phoneError.style.color = 'red';
-      phoneError.style.fontSize = '0.9em';
-      phoneInput.parentNode.appendChild(phoneError);
+      var subError = document.createElement('div');
+      subError.style.color = 'red';
+      subError.style.fontSize = '0.9em';
+      subInput.parentNode.appendChild(subError);
+
+      var bodyError = document.createElement('div');
+      bodyError.style.color = 'red';
+      bodyError.style.fontSize = '0.9em';
+      bodyInput.parentNode.appendChild(bodyError);
 
       function showError(input, errorDiv, message) {
           errorDiv.textContent = message;
@@ -491,7 +497,7 @@
           // Sanitize values before validation
           var nameVal = sanitizeInput(nameInput.value);
           var emailVal = sanitizeInput(emailInput.value);
-          var phoneVal = sanitizeInput(phoneInput.value);
+          
           if (!nameVal) {
               showError(nameInput, nameError, 'Name is required.');
               valid = false;
@@ -510,19 +516,10 @@
           } else {
               clearError(emailInput, emailError);
           }
-          if (!phoneVal) {
-              showError(phoneInput, phoneError, 'Phone number is required.');
-              valid = false;
-          } else if (!validatePhone(phoneVal)) {
-              showError(phoneInput, phoneError, 'Please enter a valid phone number (10-15 digits).');
-              valid = false;
-          } else {
-              clearError(phoneInput, phoneError);
-          }
+
           // Overwrite input values with sanitized values before submit
           nameInput.value = nameVal;
           emailInput.value = emailVal;
-          phoneInput.value = phoneVal;
           return valid;
       }
 
@@ -535,7 +532,6 @@
       // Validation only on blur (field exit) and on submit
       nameInput.addEventListener('blur', function () { validateFields(); });
       emailInput.addEventListener('blur', function () { validateFields(); });
-      phoneInput.addEventListener('blur', function () { validateFields(); });
   });
 </script>
 <!-- Add required attribute to all fields -->
@@ -544,7 +540,8 @@
       var form = document.querySelector('.contact_form form');
       form.querySelector('input[name="name"]').setAttribute('required', 'required');
       form.querySelector('input[name="email"]').setAttribute('required', 'required');
-      form.querySelector('input[name="phone"]').setAttribute('required', 'required');
+      form.querySelector('input[name="subject"]').setAttribute('required', 'required');
+      form.querySelector('input[name="body"]').setAttribute('required', 'required');
   });
 </script>
 
