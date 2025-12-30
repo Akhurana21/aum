@@ -43,7 +43,7 @@ if (isset($_POST['send'])) {
             $mail->Port       = intval($_ENV['SMTP_PORT']);
             // Email headers
             $mail->setFrom('sales@aumindustrialpackaging.com', 'AUM Industrial Packaging');
-            $mail->addAddress('shailesh.junghare@gmail.com');        // Receiver email
+            $mail->addAddress('sales@aumindustrialpackaging.com');        // Receiver email
 
             // Email body
             $mail->isHTML(true);
